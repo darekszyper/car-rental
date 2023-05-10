@@ -4,6 +4,9 @@ import com.sda.carrental.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -38,4 +41,7 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
+
+    @OneToMany(mappedBy = "user")
+    private Set<ReservationEntity> reservations = new HashSet<>(); //sprawdzić czy bez inicjalizacji też działa
 }
