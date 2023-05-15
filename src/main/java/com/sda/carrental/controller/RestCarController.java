@@ -1,5 +1,6 @@
 package com.sda.carrental.controller;
 
+import com.sda.carrental.dto.CarDto;
 import com.sda.carrental.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ public class RestCarController {
     private final CarService carService;
 
     @GetMapping("/{id}")
-    private ResponseEntity<?> findCarById(@PathVariable Long id) {
+    private ResponseEntity<CarDto> findCarById(@PathVariable Long id) {
         return ResponseEntity.ok(carService.findCarById(id));
     }
 

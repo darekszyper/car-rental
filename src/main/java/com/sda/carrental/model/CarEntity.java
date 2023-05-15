@@ -1,12 +1,11 @@
 package com.sda.carrental.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sda.carrental.dto.CarDto;
 import com.sda.carrental.model.enums.CarType;
 import com.sda.carrental.model.enums.Transmission;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -14,6 +13,7 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "cars")
 public class CarEntity {
@@ -42,4 +42,16 @@ public class CarEntity {
 
     @Column(name = "price_per_day")
     private BigDecimal pricePerDay;
+
+    @JsonIgnore
+    public static CarEntity toNewEntity(CarDto source) {
+        return CarEntity.builder()
+                .make(source.getMake())
+                .model(source.getModel())
+                .transmission(source.getTransmission())
+                .carType(source.getCarType())
+                .productionYear(source.getProductionYear())
+                .pricePerDay(source.getPricePerDay())
+                .build();
+    }
 }
