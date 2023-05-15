@@ -1,4 +1,5 @@
 package com.sda.carrental.controller;
 
-public class UserController {
+public class RestCarController {
+
 }

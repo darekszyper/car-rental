@@ -1,4 +1,4 @@
 package com.sda.carrental.controller;
 
-public class LocationController {
+public class RestUserController {
 }
