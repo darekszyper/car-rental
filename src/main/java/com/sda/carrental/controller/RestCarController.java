@@ -32,10 +32,14 @@ public class RestCarController {
         return ResponseEntity.ok(carService.saveCar(car));
     }
 
+    @PutMapping("/{id}")
+    private ResponseEntity<CarDto> updateCar(@PathVariable Long id, @RequestBody CarDto car) {
+        return ResponseEntity.ok(carService.updateCar(id, car));
+    }
+
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     private void deleteCar(@PathVariable Long id) {
         carService.deleteCarById(id);
     }
-
 }
