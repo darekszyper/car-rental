@@ -2,6 +2,7 @@ package com.sda.carrental.controller;
 
 import com.sda.carrental.dto.CarDto;
 import com.sda.carrental.service.CarService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,5 +19,8 @@ public class RestCarController {
         return ResponseEntity.ok(carService.findCarById(id));
     }
 
-
+    @PostMapping
+    private ResponseEntity<CarDto> saveCar(@RequestBody @Valid CarDto car) {
+        return ResponseEntity.ok(carService.saveCar(car));
+    }
 }

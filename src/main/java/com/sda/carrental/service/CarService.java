@@ -1,6 +1,7 @@
 package com.sda.carrental.service;
 
 import com.sda.carrental.dto.CarDto;
+import com.sda.carrental.model.CarEntity;
 import com.sda.carrental.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,7 @@ public class CarService {
     }
 
 
+    public CarDto saveCar(CarDto car) {
+        return CarDto.from(carRepository.save(CarEntity.toNewEntity(car)));
+    }
 }
