@@ -20,7 +20,6 @@ public class CarService {
                 .orElseThrow(RuntimeException::new));
     }
 
-
     public CarDto saveCar(CarDto car) {
         return CarDto.from(carRepository.save(CarEntity.toNewEntity(car)));
     }
