@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sda.carrental.model.CarEntity;
 import com.sda.carrental.model.enums.CarType;
 import com.sda.carrental.model.enums.Transmission;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -25,6 +26,7 @@ public class CarDto {
 
     private CarType carType;
 
+    @Pattern(regexp = "\\d{4}", message = "Production year must have 4 digits")
     private String productionYear;
 
     private BigDecimal pricePerDay;
