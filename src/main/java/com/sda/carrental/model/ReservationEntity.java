@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 
@@ -15,6 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "reservations")
+
 public class ReservationEntity {
 
     @Id
