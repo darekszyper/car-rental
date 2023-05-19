@@ -35,7 +35,7 @@ public class RestLocationController {
     @PutMapping("/update/{id}")
     private ResponseEntity<LocationResponse> updateLocation(@PathVariable Long id,
                                                             @RequestBody @Valid LocationRequest locationRequest) {
-        return ResponseEntity.ok(locationService.updateLocation(id,locationRequest));
+        return ResponseEntity.ok(locationService.updateLocation(id, locationRequest));
     }
 
     @DeleteMapping("/delete/{id}")

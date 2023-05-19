@@ -1,6 +1,7 @@
 package com.sda.carrental.service;
 
-import com.sda.carrental.dto.CarDto;
+import com.sda.carrental.dto.request.CarRequest;
+import com.sda.carrental.dto.response.CarResponse;
 import com.sda.carrental.model.CarEntity;
 import com.sda.carrental.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +16,13 @@ public class CarService {
 
     private final CarRepository carRepository;
 
-    public CarDto findCarById(Long id) {
-        return CarDto.from(carRepository.findById(id)
+    public CarResponse findCarById(Long id) {
+        return CarResponse.from(carRepository.findById(id)
                 .orElseThrow(RuntimeException::new));
     }
 
-    public CarDto saveCar(CarDto car) {
-        return CarDto.from(carRepository.save(CarEntity.toNewEntity(car)));
+    public CarResponse saveCar(CarRequest car) {
+        return CarResponse.from(carRepository.save(CarEntity.toNewEntity(car)));
     }
 
     public void deleteCarById(Long id) {
@@ -30,11 +31,11 @@ public class CarService {
         carRepository.delete(car);
     }
 
-    public List<CarDto> findAllCars() {
-        return carRepository.findAll().stream().map(CarDto::from).collect(Collectors.toList());
+    public List<CarResponse> findAllCars() {
+        return carRepository.findAll().stream().map(CarResponse::from).collect(Collectors.toList());
     }
 
-    public CarDto updateCar(Long id, CarDto car) {
+    public CarResponse updateCar(Long id, CarRequest car) {
         CarEntity updatedCar = carRepository.findById(id)
                 .orElseThrow(RuntimeException::new);
 
@@ -47,6 +48,6 @@ public class CarService {
 
         CarEntity savedCar = carRepository.save(updatedCar);
 
-        return CarDto.from(savedCar);
+        return CarResponse.from(savedCar);
     }
 }
