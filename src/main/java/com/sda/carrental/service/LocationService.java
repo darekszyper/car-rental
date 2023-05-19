@@ -29,4 +29,21 @@ public class LocationService {
         return LocationResponse.from(locationRepository.findById(id)
                 .orElseThrow(RuntimeException::new));
     }
+
+    public LocationResponse updateLocation(Long id, LocationRequest locationRequest) {
+        LocationEntity modifiedLocation = locationRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+
+        modifiedLocation.setCountry(locationRequest.getCountry());
+        modifiedLocation.setCity(locationRequest.getCity());
+        modifiedLocation.setStreet(locationRequest.getStreet());
+        modifiedLocation.setBuildingNumber(locationRequest.getBuildingNumber());
+        return LocationResponse.from(locationRepository.save(modifiedLocation));
+    }
+
+    public void deleteLocation(Long id) {
+        locationRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+        locationRepository.deleteById(id);
+    }
 }
