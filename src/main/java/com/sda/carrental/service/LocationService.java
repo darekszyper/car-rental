@@ -7,6 +7,8 @@ import com.sda.carrental.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LocationService {
@@ -15,5 +17,16 @@ public class LocationService {
 
     public LocationResponse saveLocation(LocationRequest locationRequest) {
         return LocationResponse.from(locationRepository.save(LocationEntity.toNewEntity(locationRequest)));
+    }
+
+    public List<LocationResponse> getAllLocations() {
+        return locationRepository.findAll().stream()
+                .map(LocationResponse::from)
+                .toList();
+    }
+
+    public LocationResponse getLocationById(Long id) {
+        return LocationResponse.from(locationRepository.findById(id)
+                .orElseThrow(RuntimeException::new));
     }
 }

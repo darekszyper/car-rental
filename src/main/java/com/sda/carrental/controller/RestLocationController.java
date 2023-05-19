@@ -17,7 +17,17 @@ public class RestLocationController {
 
     private final LocationService locationService;
 
-    @PostMapping
+    @GetMapping("/find-all")
+    private ResponseEntity<List<LocationResponse>> getAllLocations() {
+        return ResponseEntity.ok(locationService.getAllLocations());
+    }
+
+    @GetMapping("/find-by-id/{id}")
+    private ResponseEntity<LocationResponse> getLocationById(@PathVariable Long id) {
+        return ResponseEntity.ok(locationService.getLocationById(id));
+    }
+
+    @PostMapping("/save")
     private ResponseEntity<LocationResponse> saveLocation(@RequestBody @Valid LocationRequest locationRequest) {
         return ResponseEntity.ok(locationService.saveLocation(locationRequest));
     }
