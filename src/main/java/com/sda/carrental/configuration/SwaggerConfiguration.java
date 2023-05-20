@@ -15,6 +15,7 @@ public class SwaggerConfiguration {
     @Bean
     public OpenAPI vamosServerOpenAPI() {
         final String securitySchemeName = "bearerAuth";
+
         return new OpenAPI()
                 .info(new Info()
                         .title("CarRental Server API")

@@ -6,6 +6,7 @@ import com.sda.carrental.service.LocationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class RestLocationController {
         return ResponseEntity.ok(locationService.getLocationById(id));
     }
 
+    //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/save")
     private ResponseEntity<LocationResponse> saveLocation(@RequestBody @Valid LocationRequest locationRequest) {
         return ResponseEntity.ok(locationService.saveLocation(locationRequest));

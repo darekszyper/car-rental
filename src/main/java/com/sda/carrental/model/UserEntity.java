@@ -31,16 +31,16 @@ public class UserEntity implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "id_card_number")
+    @Column(name = "id_card_number", unique = true)
     private String idCardNumber;
 
-    @Column(name = "password")
+    @Column(name = "password", unique = true)
     private String password;
 
     @Enumerated(EnumType.STRING)
