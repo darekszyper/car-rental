@@ -28,17 +28,17 @@ public class RestCarController {
         return ResponseEntity.ok(carService.findCarById(id));
     }
 
-    @PostMapping("/save")
+    @PostMapping("/admin/save")
     private ResponseEntity<CarResponse> saveCar(@RequestBody @Valid CarRequest car) {
         return ResponseEntity.ok(carService.saveCar(car));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/admin/update/{id}")
     private ResponseEntity<CarResponse> updateCar(@PathVariable Long id, @RequestBody CarRequest car) {
         return ResponseEntity.ok(carService.updateCar(id, car));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
     private void deleteCar(@PathVariable Long id) {
         carService.deleteCarById(id);

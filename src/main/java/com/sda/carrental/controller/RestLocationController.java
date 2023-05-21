@@ -6,7 +6,6 @@ import com.sda.carrental.service.LocationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,19 +27,18 @@ public class RestLocationController {
         return ResponseEntity.ok(locationService.getLocationById(id));
     }
 
-    //@PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/save")
+    @PostMapping("/admin/save")
     private ResponseEntity<LocationResponse> saveLocation(@RequestBody @Valid LocationRequest locationRequest) {
         return ResponseEntity.ok(locationService.saveLocation(locationRequest));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/admin/update/{id}")
     private ResponseEntity<LocationResponse> updateLocation(@PathVariable Long id,
                                                             @RequestBody @Valid LocationRequest locationRequest) {
         return ResponseEntity.ok(locationService.updateLocation(id, locationRequest));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     private void deleteLocation(@PathVariable Long id) {
         locationService.deleteLocation(id);
     }
