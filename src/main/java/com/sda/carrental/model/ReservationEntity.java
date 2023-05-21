@@ -1,12 +1,15 @@
 package com.sda.carrental.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.sda.carrental.dto.ReservationDto;
 import com.sda.carrental.model.enums.ReservationStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Bean;
+
 
 import java.time.LocalDate;
 
@@ -55,4 +58,19 @@ public class ReservationEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @JsonIgnore
+    public static ReservationDto toNewEntity(ReservationDto source) {
+        return ReservationDto.builder()
+                .reservationId(source.getReservationId())
+                .startDate(source.getStartDate())
+                .endDate(source.getEndDate())
+                .reservationStatus(source.getReservationStatus())
+                .creditCardNumber(source.getCreditCardNumber())
+                .reservationNumber(source.getReservationNumber())
+                .pickUpLocation(source.getPickUpLocation())
+                .returnLocation(source.getReturnLocation())
+                .build();
+    }
+
 }
