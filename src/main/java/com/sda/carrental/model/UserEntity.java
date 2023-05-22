@@ -10,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -50,7 +49,7 @@ public class UserEntity implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "user")
-    private Set<ReservationEntity> reservations = new HashSet<>(); //sprawdzić czy bez inicjalizacji też działa
+    private Set<ReservationEntity> reservations;
 
 
     @JsonIgnore

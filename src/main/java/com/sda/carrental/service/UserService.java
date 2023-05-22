@@ -19,10 +19,6 @@ public class UserService {
         return UserResponse.from(userRepository.findById(id).orElseThrow(RuntimeException::new));
     }
 
-    public UserResponse saveUser(UserRequest user) {
-        return UserResponse.from(userRepository.save(UserEntity.toNewEntity(user)));
-    }
-
     public void deleteUserById(Long id) {
         UserEntity user = userRepository.findById(id).orElseThrow(RuntimeException::new);
         userRepository.delete(user);

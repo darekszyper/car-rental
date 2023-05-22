@@ -1,8 +1,5 @@
 package com.sda.carrental.dto.request;
 
-import com.sda.carrental.model.CarEntity;
-import com.sda.carrental.model.LocationEntity;
-import com.sda.carrental.model.UserEntity;
 import com.sda.carrental.model.enums.ReservationStatus;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
@@ -33,11 +30,11 @@ public class ReservationRequest {
     @NotBlank
     private String reservationNumber;
     @NotNull
-    private LocationEntity pickUpLocation;
+    private Long pickUpLocationId;
     @NotNull
-    private LocationEntity returnLocation;
+    private Long returnLocationId;
     @NotNull
-    private CarEntity car;
+    private Long carId;
     @NotNull
-    private UserEntity user;
+    private Long userId;
 }

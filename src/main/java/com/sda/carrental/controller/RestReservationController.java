@@ -17,7 +17,7 @@ import java.util.List;
 public class RestReservationController {
     private final ReservationService reservationService;
 
-    @GetMapping("/find-all")
+    @GetMapping("admin/find-all")
     private ResponseEntity<List<ReservationResponse>> findAllReservations() {
         return ResponseEntity.ok(reservationService.findAllReservations());
     }
@@ -27,17 +27,17 @@ public class RestReservationController {
         return ResponseEntity.ok(reservationService.findReservationById(id));
     }
 
-    @PostMapping("/save")
+    @PostMapping("admin/save")
     private ResponseEntity<ReservationResponse> saveReservation(@RequestBody @Valid ReservationRequest reservation) {
         return ResponseEntity.ok(reservationService.saveReservation(reservation));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("admin/update/{id}")
     private ResponseEntity<ReservationResponse> updateReservation(@PathVariable Long id, @RequestBody ReservationRequest reservation) {
         return ResponseEntity.ok(reservationService.updateReservation(id, reservation));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("admin/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
     private void deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservationById(id);
