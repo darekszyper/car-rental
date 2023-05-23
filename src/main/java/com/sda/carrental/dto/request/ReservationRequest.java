@@ -4,6 +4,7 @@ import com.sda.carrental.model.enums.ReservationStatus;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,7 @@ public class ReservationRequest {
     @Enumerated
     private ReservationStatus reservationStatus;
 
-    @NotNull
+    @Size(min = 13, max = 16)
     private String creditCardNumber;
 
     @NotBlank
