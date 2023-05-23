@@ -1,7 +1,5 @@
 package com.sda.carrental.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sda.carrental.dto.request.CarRequest;
 import com.sda.carrental.model.enums.CarType;
 import com.sda.carrental.model.enums.Transmission;
 import jakarta.persistence.*;
@@ -42,16 +40,4 @@ public class CarEntity {
 
     @Column(name = "price_per_day")
     private BigDecimal pricePerDay;
-
-    @JsonIgnore
-    public static CarEntity toNewEntity(CarRequest source) {
-        return CarEntity.builder()
-                .make(source.getMake())
-                .model(source.getModel())
-                .transmission(source.getTransmission())
-                .carType(source.getCarType())
-                .productionYear(source.getProductionYear())
-                .pricePerDay(source.getPricePerDay())
-                .build();
-    }
 }

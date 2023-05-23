@@ -1,10 +1,7 @@
 package com.sda.carrental.mapper;
 
 import com.sda.carrental.dto.request.ReservationRequest;
-import com.sda.carrental.dto.response.CarResponse;
-import com.sda.carrental.dto.response.LocationResponse;
 import com.sda.carrental.dto.response.ReservationResponse;
-import com.sda.carrental.dto.response.UserResponse;
 import com.sda.carrental.model.ReservationEntity;
 import com.sda.carrental.repository.CarRepository;
 import com.sda.carrental.repository.LocationRepository;
@@ -21,6 +18,12 @@ public class ReservationMapper {
     private final CarRepository carRepository;
 
     private final UserRepository userRepository;
+
+    private final LocationMapper locationMapper;
+
+    private final CarMapper carMapper;
+
+    private final UserMapper userMapper;
 
 
     public ReservationEntity toNewEntity(ReservationRequest source) {
@@ -49,10 +52,10 @@ public class ReservationMapper {
                 .reservationStatus(source.getReservationStatus())
                 .creditCardNumber(source.getCreditCardNumber())
                 .reservationNumber(source.getReservationNumber())
-                .pickUpLocation(LocationResponse.from(source.getPickUpLocation()))
-                .returnLocation(LocationResponse.from(source.getReturnLocation()))
-                .car(CarResponse.from(source.getCar()))
-                .user(UserResponse.from(source.getUser()))
+                .pickUpLocation(locationMapper.responseFrom(source.getPickUpLocation()))
+                .returnLocation(locationMapper.responseFrom(source.getReturnLocation()))
+                .car(carMapper.responseFrom(source.getCar()))
+                .user(userMapper.responseFrom(source.getUser()))
                 .build();
     }
 }

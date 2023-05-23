@@ -2,6 +2,7 @@ package com.sda.carrental.service;
 
 import com.sda.carrental.dto.request.LocationRequest;
 import com.sda.carrental.dto.response.LocationResponse;
+import com.sda.carrental.mapper.LocationMapper;
 import com.sda.carrental.model.LocationEntity;
 import com.sda.carrental.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
@@ -13,20 +14,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LocationService {
 
+    private final LocationMapper locationMapper;
+
     private final LocationRepository locationRepository;
 
     public LocationResponse saveLocation(LocationRequest locationRequest) {
-        return LocationResponse.from(locationRepository.save(LocationEntity.toNewEntity(locationRequest)));
+        return locationMapper.responseFrom(locationRepository.save(locationMapper.toNewEntity(locationRequest)));
     }
 
     public List<LocationResponse> getAllLocations() {
         return locationRepository.findAll().stream()
-                .map(LocationResponse::from)
+                .map(locationMapper::responseFrom)
                 .toList();
     }
 
     public LocationResponse getLocationById(Long id) {
-        return LocationResponse.from(locationRepository.findById(id)
+        return locationMapper.responseFrom(locationRepository.findById(id)
                 .orElseThrow(RuntimeException::new));
     }
 
@@ -38,12 +41,12 @@ public class LocationService {
         modifiedLocation.setCity(locationRequest.getCity());
         modifiedLocation.setStreet(locationRequest.getStreet());
         modifiedLocation.setBuildingNumber(locationRequest.getBuildingNumber());
-        return LocationResponse.from(locationRepository.save(modifiedLocation));
+        return locationMapper.responseFrom(locationRepository.save(modifiedLocation));
     }
 
     public void deleteLocation(Long id) {
-        locationRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
-        locationRepository.deleteById(id);
+        if (locationRepository.existsById(id)) {
+            locationRepository.deleteById(id);
+        }
     }
 }

@@ -1,7 +1,5 @@
 package com.sda.carrental.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sda.carrental.dto.request.LocationRequest;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,14 +28,4 @@ public class LocationEntity {
 
     @Column(name = "building_number")
     private String buildingNumber;
-
-    @JsonIgnore
-    public static LocationEntity toNewEntity(LocationRequest source) {
-        return LocationEntity.builder()
-                .country(source.getCountry())
-                .city(source.getCity())
-                .street(source.getStreet())
-                .buildingNumber(source.getBuildingNumber())
-                .build();
-    }
 }

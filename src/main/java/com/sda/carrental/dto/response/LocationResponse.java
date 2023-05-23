@@ -1,7 +1,5 @@
 package com.sda.carrental.dto.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sda.carrental.model.LocationEntity;
 import lombok.*;
 
 @Getter
@@ -20,15 +18,4 @@ public class LocationResponse {
     private String street;
 
     private String buildingNumber;
-
-    @JsonIgnore
-    public static LocationResponse from(LocationEntity source) {
-        return LocationResponse.builder()
-                .locationId(source.getLocationId())
-                .country(source.getCountry())
-                .city(source.getCity())
-                .street(source.getStreet())
-                .buildingNumber(source.getBuildingNumber())
-                .build();
-    }
 }

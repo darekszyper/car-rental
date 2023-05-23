@@ -1,7 +1,5 @@
 package com.sda.carrental.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sda.carrental.dto.request.UserRequest;
 import com.sda.carrental.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -50,21 +48,6 @@ public class UserEntity implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private Set<ReservationEntity> reservations;
-
-
-    @JsonIgnore
-    public static UserEntity toNewEntity(UserRequest source) {
-        return UserEntity.builder()
-                .firstName(source.getFirstName())
-                .lastName(source.getLastName())
-                .email(source.getEmail())
-                .phoneNumber(source.getPhoneNumber())
-                .idCardNumber(source.getIdCardNumber())
-                .password(source.getPassword())
-                .role(source.getRole())
-                .reservations(source.getReservations())
-                .build();
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

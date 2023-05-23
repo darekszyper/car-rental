@@ -2,12 +2,9 @@ package com.sda.carrental.service;
 
 
 import com.sda.carrental.dto.request.ReservationRequest;
-
 import com.sda.carrental.dto.response.ReservationResponse;
-
 import com.sda.carrental.mapper.ReservationMapper;
 import com.sda.carrental.model.ReservationEntity;
-
 import com.sda.carrental.repository.CarRepository;
 import com.sda.carrental.repository.LocationRepository;
 import com.sda.carrental.repository.ReservationRepository;
@@ -41,8 +38,9 @@ public class ReservationService {
     }
 
     public void deleteReservationById(Long id) {
-        ReservationEntity reservation = reservationRepository.findById(id).orElseThrow(RuntimeException::new);
-        reservationRepository.delete(reservation);
+        if (reservationRepository.existsById(id)) {
+            reservationRepository.deleteById(id);
+        }
     }
 
     public List<ReservationResponse> findAllReservations() {
