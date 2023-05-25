@@ -17,29 +17,34 @@ import java.util.List;
 public class RestReservationController {
     private final ReservationService reservationService;
 
-    @GetMapping("admin/find-all")
-    private ResponseEntity<List<ReservationResponse>> findAllReservations() {
+    @GetMapping("/admin/find-all")
+    public ResponseEntity<List<ReservationResponse>> findAllReservations() {
         return ResponseEntity.ok(reservationService.findAllReservations());
     }
 
     @GetMapping("/find-by-id/{id}")
-    private ResponseEntity<ReservationResponse> findReservationById(@PathVariable Long id) {
+    public ResponseEntity<ReservationResponse> findReservationById(@PathVariable Long id) {
         return ResponseEntity.ok(reservationService.findReservationById(id));
     }
 
-    @PostMapping("admin/save")
-    private ResponseEntity<ReservationResponse> saveReservation(@RequestBody @Valid ReservationRequest reservation) {
+    @PostMapping("/save")
+    public ResponseEntity<ReservationResponse> saveReservation(@RequestBody @Valid ReservationRequest reservation) {
         return ResponseEntity.ok(reservationService.saveReservation(reservation));
     }
 
-    @PutMapping("admin/update/{id}")
-    private ResponseEntity<ReservationResponse> updateReservation(@PathVariable Long id, @RequestBody ReservationRequest reservation) {
+    @PutMapping("/admin/update/{id}")
+    public ResponseEntity<ReservationResponse> updateReservation(@PathVariable Long id, @RequestBody ReservationRequest reservation) {
         return ResponseEntity.ok(reservationService.updateReservation(id, reservation));
     }
 
-    @DeleteMapping("admin/delete/{id}")
+    @DeleteMapping("/admin/delete/{id}")
     @ResponseStatus(HttpStatus.OK)
-    private void deleteReservation(@PathVariable Long id) {
+    public void deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservationById(id);
+    }
+
+    @PutMapping("/admin/cancel/{id}")
+    public ResponseEntity<ReservationResponse> cancelReservationById(@PathVariable Long id) {
+        return ResponseEntity.ok(reservationService.cancelReservationById(id));
     }
 }

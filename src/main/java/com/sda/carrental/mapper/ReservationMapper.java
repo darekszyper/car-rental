@@ -30,9 +30,7 @@ public class ReservationMapper {
         return ReservationEntity.builder()
                 .startDate(source.getStartDate())
                 .endDate(source.getEndDate())
-                .reservationStatus(source.getReservationStatus())
                 .creditCardNumber(source.getCreditCardNumber())
-                .reservationNumber(source.getReservationNumber())
                 .pickUpLocation(locationRepository
                         .findById(source.getPickUpLocationId()).orElse(null))
                 .returnLocation(locationRepository
