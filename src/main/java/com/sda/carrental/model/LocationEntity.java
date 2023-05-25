@@ -1,7 +1,10 @@
 package com.sda.carrental.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,4 +31,12 @@ public class LocationEntity {
 
     @Column(name = "building_number")
     private String buildingNumber;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "pickUpLocation")
+    private Set<ReservationEntity> reservationsPickUp;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "returnLocation")
+    private Set<ReservationEntity> reservationsReturns;
 }

@@ -8,6 +8,9 @@ import com.sda.carrental.repository.CarRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,5 +55,18 @@ public class CarService {
         CarEntity savedCar = carRepository.save(updatedCar);
 
         return carMapper.responseFrom(savedCar);
+    }
+
+    public List<CarResponse> findAvailableCarsByDateWithPrice(LocalDate startDate, LocalDate endDate) {
+        if (startDate.isAfter(endDate) || startDate.equals(endDate)) {
+            throw new IllegalArgumentException("Start date must be before end date");
+        }
+        long rentalDays = ChronoUnit.DAYS.between(startDate, endDate);
+        List<CarEntity> carEntities = carRepository.findAvailableCarsByReservationDate(startDate, endDate);
+        return carEntities.stream().map(c -> {
+            BigDecimal priceForRentalDays = c.getPricePerDay().multiply(BigDecimal.valueOf(rentalDays));
+            c.setPricePerDay(priceForRentalDays);
+            return carMapper.responseFrom(c);
+        }).collect(Collectors.toList());
     }
 }

@@ -17,17 +17,17 @@ public class RestUserController {
     private final UserService userService;
 
     @GetMapping("/find-all")
-    private ResponseEntity<List<UserResponse>> findAllUsers() {
+    public ResponseEntity<List<UserResponse>> findAllUsers() {
         return ResponseEntity.ok(userService.findAllUsers());
     }
 
     @GetMapping("/find-by-id/{id}")
-    private ResponseEntity<UserResponse> findUserById(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> findUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.findUserById(id));
     }
 
     @PutMapping("/update/{id}")
-    private ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest user) {
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest user) {
         return ResponseEntity.ok(userService.updateUser(id, user));
     }
 

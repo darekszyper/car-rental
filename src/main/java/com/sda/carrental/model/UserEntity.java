@@ -1,5 +1,6 @@
 package com.sda.carrental.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sda.carrental.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -46,6 +47,7 @@ public class UserEntity implements UserDetails {
     @Column(name = "role")
     private Role role;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Set<ReservationEntity> reservations;
 
