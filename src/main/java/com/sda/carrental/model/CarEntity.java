@@ -1,13 +1,13 @@
 package com.sda.carrental.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sda.carrental.dto.request.CarRequest;
 import com.sda.carrental.model.enums.CarType;
 import com.sda.carrental.model.enums.Transmission;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -46,14 +46,6 @@ public class CarEntity {
 
 
     @JsonIgnore
-    public static CarEntity toNewEntity(CarRequest source) {
-        return CarEntity.builder()
-                .make(source.getMake())
-                .model(source.getModel())
-                .transmission(source.getTransmission())
-                .carType(source.getCarType())
-                .productionYear(source.getProductionYear())
-                .pricePerDay(source.getPricePerDay())
-                .build();
-    }
+    @OneToMany(mappedBy = "car")
+    private Set<ReservationEntity> reservations;
 }

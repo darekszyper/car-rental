@@ -2,10 +2,12 @@ package com.sda.carrental.service;
 
 import com.sda.carrental.dto.request.UserRequest;
 import com.sda.carrental.dto.response.UserResponse;
+import com.sda.carrental.mapper.UserMapper;
 import com.sda.carrental.model.UserEntity;
 import com.sda.carrental.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,21 +17,20 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserResponse findUserById(Long id) {
-        return UserResponse.from(userRepository.findById(id).orElseThrow(RuntimeException::new));
-    }
+    private final UserMapper userMapper;
 
-    public UserResponse saveUser(UserRequest user) {
-        return UserResponse.from(userRepository.save(UserEntity.toNewEntity(user)));
+    public UserResponse findUserById(Long id) {
+        return userMapper.responseFrom(userRepository.findById(id).orElseThrow(RuntimeException::new));
     }
 
     public void deleteUserById(Long id) {
-        UserEntity user = userRepository.findById(id).orElseThrow(RuntimeException::new);
-        userRepository.delete(user);
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        }
     }
 
     public List<UserResponse> findAllUsers() {
-        return userRepository.findAll().stream().map(UserResponse::from).collect(Collectors.toList());
+        return userRepository.findAll().stream().map(userMapper::responseFrom).collect(Collectors.toList());
     }
 
     public UserResponse updateUser(Long id, UserRequest user) {
@@ -43,11 +44,9 @@ public class UserService {
         updatedUser.setIdCardNumber(user.getIdCardNumber());
         updatedUser.setPassword(user.getPassword());
         updatedUser.setRole(user.getRole());
-        updatedUser.setReservations(user.getReservations());
-
 
         UserEntity savedUser = userRepository.save(updatedUser);
 
-        return UserResponse.from(savedUser);
+        return userMapper.responseFrom(savedUser);
     }
 }

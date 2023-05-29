@@ -2,6 +2,7 @@ package com.sda.carrental.service;
 
 import com.sda.carrental.dto.request.CarRequest;
 import com.sda.carrental.dto.response.CarResponse;
+import com.sda.carrental.mapper.CarMapper;
 import com.sda.carrental.model.CarEntity;
 import com.sda.carrental.model.enums.CarType;
 import com.sda.carrental.model.enums.Transmission;
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,26 +22,28 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CarService {
 
+    private final CarMapper carMapper;
+
     private final CarRepository carRepository;
 
 
     public CarResponse findCarById(Long id) {
-        return CarResponse.from(carRepository.findById(id)
+        return carMapper.responseFrom(carRepository.findById(id)
                 .orElseThrow(RuntimeException::new));
     }
 
     public CarResponse saveCar(CarRequest car) {
-        return CarResponse.from(carRepository.save(CarEntity.toNewEntity(car)));
+        return carMapper.responseFrom(carRepository.save(carMapper.toNewEntity(car)));
     }
 
     public void deleteCarById(Long id) {
-        CarEntity car = carRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
-        carRepository.delete(car);
+        if (carRepository.existsById(id)) {
+            carRepository.deleteById(id);
+        }
     }
 
     public List<CarResponse> findAllCars() {
-        return carRepository.findAll().stream().map(CarResponse::from).collect(Collectors.toList());
+        return carRepository.findAll().stream().map(carMapper::responseFrom).collect(Collectors.toList());
     }
 
     public List<CarEntity> searchCars(String make, String model, Transmission transmission, CarType carType, BigDecimal minPrice,BigDecimal maxPrice) {
@@ -59,7 +64,20 @@ public class CarService {
 
         CarEntity savedCar = carRepository.save(updatedCar);
 
-        return CarResponse.from(savedCar);
+        return carMapper.responseFrom(savedCar);
+    }
+
+    public List<CarResponse> findAvailableCarsByDateWithPrice(LocalDate startDate, LocalDate endDate) {
+        if (startDate.isAfter(endDate) || startDate.equals(endDate)) {
+            throw new IllegalArgumentException("Start date must be before end date");
+        }
+        long rentalDays = ChronoUnit.DAYS.between(startDate, endDate);
+        List<CarEntity> carEntities = carRepository.findAvailableCarsByReservationDate(startDate, endDate);
+        return carEntities.stream().map(c -> {
+            BigDecimal priceForRentalDays = c.getPricePerDay().multiply(BigDecimal.valueOf(rentalDays));
+            c.setPricePerDay(priceForRentalDays);
+            return carMapper.responseFrom(c);
+        }).collect(Collectors.toList());
     }
 
 }

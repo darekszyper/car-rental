@@ -18,28 +18,28 @@ public class RestLocationController {
     private final LocationService locationService;
 
     @GetMapping("/find-all")
-    private ResponseEntity<List<LocationResponse>> getAllLocations() {
+    public ResponseEntity<List<LocationResponse>> getAllLocations() {
         return ResponseEntity.ok(locationService.getAllLocations());
     }
 
     @GetMapping("/find-by-id/{id}")
-    private ResponseEntity<LocationResponse> getLocationById(@PathVariable Long id) {
+    public ResponseEntity<LocationResponse> getLocationById(@PathVariable Long id) {
         return ResponseEntity.ok(locationService.getLocationById(id));
     }
 
-    @PostMapping("/save")
-    private ResponseEntity<LocationResponse> saveLocation(@RequestBody @Valid LocationRequest locationRequest) {
+    @PostMapping("/admin/save")
+    public ResponseEntity<LocationResponse> saveLocation(@RequestBody @Valid LocationRequest locationRequest) {
         return ResponseEntity.ok(locationService.saveLocation(locationRequest));
     }
 
-    @PutMapping("/update/{id}")
-    private ResponseEntity<LocationResponse> updateLocation(@PathVariable Long id,
+    @PutMapping("/admin/update/{id}")
+    public ResponseEntity<LocationResponse> updateLocation(@PathVariable Long id,
                                                             @RequestBody @Valid LocationRequest locationRequest) {
         return ResponseEntity.ok(locationService.updateLocation(id, locationRequest));
     }
 
-    @DeleteMapping("/delete/{id}")
-    private void deleteLocation(@PathVariable Long id) {
+    @DeleteMapping("/admin/delete/{id}")
+    public void deleteLocation(@PathVariable Long id) {
         locationService.deleteLocation(id);
     }
 }

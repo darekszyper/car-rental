@@ -1,36 +1,35 @@
-package com.sda.carrental.dto.request;
+package com.sda.carrental.auth;
 
-import com.sda.carrental.model.enums.Role;
-import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
+@Builder
 @AllArgsConstructor
-public class UserRequest {
+@NoArgsConstructor
+public class RegisterRequest {
+
     @NotBlank
     private String firstName;
 
     @NotBlank
     private String lastName;
 
-    @NotBlank
+    @Email
     private String email;
 
-    @NotBlank
+    @Size(min = 7, max = 12)
     private String phoneNumber;
 
-    @NotBlank
+    @Size(min = 5, max = 15)
     private String idCardNumber;
 
-    @NotBlank
+    @Size(min = 5, max = 50)
     private String password;
 
-    @Enumerated
-    private Role role;
 }

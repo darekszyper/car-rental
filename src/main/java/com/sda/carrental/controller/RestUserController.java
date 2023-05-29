@@ -3,11 +3,11 @@ package com.sda.carrental.controller;
 import com.sda.carrental.dto.request.UserRequest;
 import com.sda.carrental.dto.response.UserResponse;
 import com.sda.carrental.service.UserService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -17,22 +17,17 @@ public class RestUserController {
     private final UserService userService;
 
     @GetMapping("/find-all")
-    private ResponseEntity<List<UserResponse>> findAllUsers() {
+    public ResponseEntity<List<UserResponse>> findAllUsers() {
         return ResponseEntity.ok(userService.findAllUsers());
     }
 
     @GetMapping("/find-by-id/{id}")
-    private ResponseEntity<UserResponse> findUserById(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> findUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.findUserById(id));
     }
 
-    @PostMapping("/save")
-    private ResponseEntity<UserResponse> saveUser(@RequestBody @Valid UserRequest user) {
-        return ResponseEntity.ok(userService.saveUser(user));
-    }
-
     @PutMapping("/update/{id}")
-    private ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest user) {
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest user) {
         return ResponseEntity.ok(userService.updateUser(id, user));
     }
 

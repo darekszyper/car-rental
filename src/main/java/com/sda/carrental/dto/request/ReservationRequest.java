@@ -1,12 +1,7 @@
 package com.sda.carrental.dto.request;
 
-import com.sda.carrental.model.CarEntity;
-import com.sda.carrental.model.LocationEntity;
-import com.sda.carrental.model.UserEntity;
-import com.sda.carrental.model.enums.ReservationStatus;
-import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,23 +16,22 @@ import java.time.LocalDate;
 public class ReservationRequest {
     @NotNull
     private LocalDate startDate;
+
     @NotNull
     private LocalDate endDate;
 
-    @Enumerated
-    private ReservationStatus reservationStatus;
-
-    @NotNull
+    @Size(min = 13, max = 16)
     private String creditCardNumber;
 
-    @NotBlank
-    private String reservationNumber;
     @NotNull
-    private LocationEntity pickUpLocation;
+    private Long pickUpLocationId;
+
     @NotNull
-    private LocationEntity returnLocation;
+    private Long returnLocationId;
+
     @NotNull
-    private CarEntity car;
+    private Long carId;
+
     @NotNull
-    private UserEntity user;
+    private Long userId;
 }
