@@ -4,7 +4,11 @@ import com.sda.carrental.dto.request.CarRequest;
 import com.sda.carrental.dto.response.CarResponse;
 import com.sda.carrental.mapper.CarMapper;
 import com.sda.carrental.model.CarEntity;
+import com.sda.carrental.model.enums.CarType;
+import com.sda.carrental.model.enums.Transmission;
 import com.sda.carrental.repository.CarRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +25,7 @@ public class CarService {
     private final CarMapper carMapper;
 
     private final CarRepository carRepository;
+
 
     public CarResponse findCarById(Long id) {
         return carMapper.responseFrom(carRepository.findById(id)
@@ -40,6 +45,11 @@ public class CarService {
     public List<CarResponse> findAllCars() {
         return carRepository.findAll().stream().map(carMapper::responseFrom).collect(Collectors.toList());
     }
+
+    public List<CarEntity> searchCars(String make, String model, Transmission transmission, CarType carType, BigDecimal minPrice,BigDecimal maxPrice) {
+        return carRepository.searchCars(make, model, transmission, carType, minPrice, maxPrice);
+    }
+
 
     public CarResponse updateCar(Long id, CarRequest car) {
         CarEntity updatedCar = carRepository.findById(id)
@@ -69,4 +79,5 @@ public class CarService {
             return carMapper.responseFrom(c);
         }).collect(Collectors.toList());
     }
+
 }

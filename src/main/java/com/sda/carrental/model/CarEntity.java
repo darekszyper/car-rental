@@ -43,6 +43,8 @@ public class CarEntity {
     @Column(name = "price_per_day")
     private BigDecimal pricePerDay;
 
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "car")
     private Set<ReservationEntity> reservations;
