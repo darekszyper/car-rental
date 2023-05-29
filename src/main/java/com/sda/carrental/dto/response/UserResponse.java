@@ -19,7 +19,6 @@ public class UserResponse {
     private String email;
     private String phoneNumber;
     private String idCardNumber;
-    private String password;
     private Role role;
     private Set<ReservationEntity> reservations;
 
@@ -29,8 +28,8 @@ public class UserResponse {
                 .firstName(source.getFirstName())
                 .lastName(source.getLastName())
                 .email(source.getEmail())
+                .phoneNumber(source.getPhoneNumber())
                 .idCardNumber(source.getIdCardNumber())
-                .password(source.getPassword())
                 .role(source.getRole())
                 .reservations(source.getReservations())
 

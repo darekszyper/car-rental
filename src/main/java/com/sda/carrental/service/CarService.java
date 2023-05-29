@@ -3,10 +3,15 @@ package com.sda.carrental.service;
 import com.sda.carrental.dto.request.CarRequest;
 import com.sda.carrental.dto.response.CarResponse;
 import com.sda.carrental.model.CarEntity;
+import com.sda.carrental.model.enums.CarType;
+import com.sda.carrental.model.enums.Transmission;
 import com.sda.carrental.repository.CarRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +20,7 @@ import java.util.stream.Collectors;
 public class CarService {
 
     private final CarRepository carRepository;
+
 
     public CarResponse findCarById(Long id) {
         return CarResponse.from(carRepository.findById(id)
@@ -35,6 +41,11 @@ public class CarService {
         return carRepository.findAll().stream().map(CarResponse::from).collect(Collectors.toList());
     }
 
+    public List<CarEntity> searchCars(String make, String model, Transmission transmission, CarType carType, BigDecimal minPrice,BigDecimal maxPrice) {
+        return carRepository.searchCars(make, model, transmission, carType, minPrice, maxPrice);
+    }
+
+
     public CarResponse updateCar(Long id, CarRequest car) {
         CarEntity updatedCar = carRepository.findById(id)
                 .orElseThrow(RuntimeException::new);
@@ -50,4 +61,5 @@ public class CarService {
 
         return CarResponse.from(savedCar);
     }
+
 }
