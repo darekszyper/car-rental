@@ -55,7 +55,7 @@ public class RestCarController {
     }
 
     @GetMapping("/search")
-    private ResponseEntity<List<CarEntity>> searchCars(@RequestParam(value = "make", required = false) String make,
+    public ResponseEntity<List<CarEntity>> searchCars(@RequestParam(value = "make", required = false) String make,
                                                        @RequestParam(value = "model", required = false) String model,
                                                        @RequestParam(value = "transmission", required = false) Transmission transmission,
                                                        @RequestParam(value = "type", required = false) CarType carType,
