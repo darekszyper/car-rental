@@ -9,8 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import org.springframework.stereotype.Repository;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,12 +31,13 @@ public interface CarRepository extends JpaRepository<CarEntity, Long> {
                                @Param("maxPrice") BigDecimal maxPrice);
 
     @Query("SELECT c FROM CarEntity c " +
-            "LEFT JOIN c.reservations r " +
-            "WHERE (:endDate < r.startDate " +
-            "OR :startDate > r.endDate " +
-            "OR (r.reservationId IS NULL)) " +
-            "AND r.reservationStatus != 'CANCELLED'")
+            "WHERE c.carId NOT IN (" +
+            "   SELECT r.car.carId FROM ReservationEntity r " +
+            "   WHERE (:endDate >= r.startDate AND :startDate <= r.endDate) " +
+            "   AND r.reservationStatus != 'CANCELLED'" +
+            ")")
     List<CarEntity> findAvailableCarsByReservationDate(LocalDate startDate, LocalDate endDate);
+
 }
 
 
