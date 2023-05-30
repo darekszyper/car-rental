@@ -43,9 +43,16 @@ public class CarEntity {
     @Column(name = "price_per_day")
     private BigDecimal pricePerDay;
 
-
-
     @JsonIgnore
     @OneToMany(mappedBy = "car")
     private Set<ReservationEntity> reservations;
+
+    public CarEntity(String make, String model, Transmission transmission, CarType carType, String productionYear, BigDecimal pricePerDay) {
+        this.make = make;
+        this.model = model;
+        this.transmission = transmission;
+        this.carType = carType;
+        this.productionYear = productionYear;
+        this.pricePerDay = pricePerDay;
+    }
 }
