@@ -7,7 +7,6 @@ This API provides functionality to manage a car rental system, allowing users to
 - User registration and login with JWT authentication
 - Password encryption using BCrypt
 - Role-based authorization with Spring Security
-- Unit test using jUnit and MockMvc
 - Car inventory management
 - Car rental management
 
@@ -22,3 +21,6 @@ This API provides functionality to manage a car rental system, allowing users to
 - BCrypt
 - Maven
 - Swagger UI
+- REST API
+- JPQL
+- jUnit and MockMvc
