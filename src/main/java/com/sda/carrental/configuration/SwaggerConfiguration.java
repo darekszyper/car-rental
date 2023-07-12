@@ -1,7 +1,6 @@
 package com.sda.carrental.configuration;
 
 import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.ExternalDocumentation;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
@@ -13,16 +12,14 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfiguration {
 
     @Bean
-    public OpenAPI vamosServerOpenAPI() {
+    public OpenAPI carRentalServerOpenAPI() {
         final String securitySchemeName = "bearerAuth";
 
         return new OpenAPI()
                 .info(new Info()
                         .title("CarRental Server API")
-                        .version("v0.0.1-DEV")
-                        .description("API służące do zarządzania wypożyczalnią samochodów."))
-                .externalDocs(new ExternalDocumentation()
-                        .description("Documentation"))
+                        .version("v0.1-DEV")
+                        .description("Car rental management application."))
                 .addSecurityItem(new SecurityRequirement()
                         .addList(securitySchemeName))
                 .components(new Components()
