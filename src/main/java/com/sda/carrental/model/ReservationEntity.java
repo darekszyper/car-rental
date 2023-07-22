@@ -52,4 +52,11 @@ public class ReservationEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    public ReservationEntity(LocalDate startDate, LocalDate endDate, ReservationStatus reservationStatus, CarEntity car) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.reservationStatus = reservationStatus;
+        this.car = car;
+    }
 }

@@ -21,3 +21,6 @@ This API provides functionality to manage a car rental system, allowing users to
 - BCrypt
 - Maven
 - Swagger UI
+- REST API
+- JPQL
+- jUnit and MockMvc
