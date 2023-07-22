@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("/api/cars")
 @RequiredArgsConstructor
 @Validated
-public class RestCarController {
+public class CarController {
 
     private final CarService carService;
 

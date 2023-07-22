@@ -14,7 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/reservations")
 @RequiredArgsConstructor
-public class RestReservationController {
+public class ReservationController {
     private final ReservationService reservationService;
 
     @GetMapping("/admin/find-all")

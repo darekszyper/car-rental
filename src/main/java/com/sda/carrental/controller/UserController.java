@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
-public class RestUserController {
+public class UserController {
     private final UserService userService;
 
     @GetMapping("/find-all")
